@@ -37,6 +37,13 @@ const AccordionSection = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   margin-bottom: 100px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
 `;
 
 const RightSlider: React.FC<RightSliderProps> = ({ isOpen, providers }) => {
@@ -46,7 +53,7 @@ const RightSlider: React.FC<RightSliderProps> = ({ isOpen, providers }) => {
       <AccordionSection>
         {providers && providers.length > 0 ? (
           providers.map((provider, index) => (
-            <Accordion key={index} title={provider} content={provider} />
+            <Accordion key={index} provider={provider} />
           ))
         ) : (
           <>

@@ -8,7 +8,7 @@ const AppRouter: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/provider-details" element={<ProviderDetailView />} />
+        <Route path="/provider-details/:providerName" element={<ProviderDetailView />} />
       </Routes>
     </Router>
   );

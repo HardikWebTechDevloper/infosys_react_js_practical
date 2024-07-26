@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import StyledButton from "../layout-components/StyledButton";
 import RightSlider from "../layout-components/RightSlider";
 import { fetchProviders } from "../api/providerApi";
+import AppContainer from "../layout-components/AppContainer";
 
 const Home: React.FC = () => {
   const [isOpenSlider, setIsOpenSlider] = useState(false);
@@ -22,11 +23,13 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <StyledButton
-        label={"Explore Web APIs"}
-        handleButtonClick={handleButtonClick}
-      />
-      <RightSlider isOpen={isOpenSlider} providers={providers} />
+      <AppContainer>
+        <StyledButton
+          label={"Explore Web APIs"}
+          handleButtonClick={handleButtonClick}
+        />
+        <RightSlider isOpen={isOpenSlider} providers={providers} />
+      </AppContainer>
     </>
   );
 };
