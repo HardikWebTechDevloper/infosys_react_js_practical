@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchProviderDetails } from "../api/providerApi";
 import styled from "styled-components";
@@ -67,15 +67,15 @@ const ProviderDetailView: React.FC = () => {
     fetchProviderInfo();
   }, [providerName]);
 
-  const fetchProviderInfo = async () => {
+  const fetchProviderInfo = useCallback(async () => {
     let response = await fetchProviderDetails(providerName);
     if (response && response?.apis) {
       const apiResponse: any = Object.values(response?.apis)[0];
 
-      setLogoSrc(apiResponse?.info["x-logo"]?.url);
+      setLogoSrc(apiResponse?.info?.["x-logo"]?.url);
       setProviderInfo(apiResponse);
     }
-  };
+  }, []);
 
   const handleImageError = () => {
     setLogoSrc(DefaultLogo);

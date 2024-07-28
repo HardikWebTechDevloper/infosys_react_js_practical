@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import StyledButton from "../layout-components/StyledButton";
 import RightSlider from "../layout-components/RightSlider";
 import { fetchProviders } from "../api/providerApi";
@@ -14,12 +14,16 @@ const Home: React.FC = () => {
     handleFetchProviders();
   }, []);
 
-  const handleFetchProviders = async () => {
+  const handleFetchProviders = useCallback(async () => {
     const response = await fetchProviders();
     if (response && response.data && response.data.length > 0) {
       setProviders(response.data);
     }
-  };
+  }, []);
+
+  function handleCloseSilder() {
+    setIsOpenSlider(false);
+  }
 
   return (
     <>
@@ -28,7 +32,11 @@ const Home: React.FC = () => {
           label={"Explore Web APIs"}
           handleButtonClick={handleButtonClick}
         />
-        <RightSlider isOpen={isOpenSlider} providers={providers} />
+        <RightSlider
+          isOpen={isOpenSlider}
+          providers={providers}
+          onCloseSlider={handleCloseSilder}
+        />
       </AppContainer>
     </>
   );

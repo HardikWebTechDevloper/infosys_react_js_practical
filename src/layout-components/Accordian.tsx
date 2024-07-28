@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import styled from "styled-components";
 import { fetchProviderDetails } from "../api/providerApi";
@@ -54,7 +54,7 @@ const Accordion: React.FC<AccordionProps> = ({ provider }) => {
     fetchProviderInfo();
   };
 
-  const fetchProviderInfo = async () => {
+  const fetchProviderInfo = useCallback(async () => {
     if (!isOpen) {
       let response = await fetchProviderDetails(provider);
       if (response && response?.apis) {
@@ -64,7 +64,7 @@ const Accordion: React.FC<AccordionProps> = ({ provider }) => {
         setProviderInfo(apiResponse);
       }
     }
-  };
+  }, [provider]);
 
   const handleRedirect = () => {
     navigate(`/provider-details/${provider}`);
